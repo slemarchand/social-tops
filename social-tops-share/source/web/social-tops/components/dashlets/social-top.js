@@ -150,9 +150,8 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
             {
                fn: function(p_oResponse)
                {
-                  //var countPreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, this.buildPreferences(PREF_COUNT), "");
-            	   var countPreference = "5";
-            	   if (countPreference !== null)
+                  var countPreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, this.buildPreferences(PREF_COUNT), "");
+            	  if (countPreference !== null)
                   {
                      this.widgets.count.value = countPreference;
                      // set the correct menu label
@@ -170,8 +169,7 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
                      }
                   }
                   
-                  // var rangePreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, this.buildPreferences(PREF_RANGE), "7");
-            	  var rangePreference = "7";
+                  var rangePreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, this.buildPreferences(PREF_RANGE), "7");
             	  if (rangePreference !== null)
                   {
                      this.widgets.range.value = rangePreference;
@@ -190,8 +188,7 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
                      }
                   }
                   
-                  //var typePreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, this.buildPreferences(PREF_TYPE), "all");
-                  var typePreference = "mostActivePeople";
+            	  var typePreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, this.buildPreferences(PREF_TYPE), "all");
                   if (typePreference !== null)
                   {
                      this.widgets.type.value = typePreference;
