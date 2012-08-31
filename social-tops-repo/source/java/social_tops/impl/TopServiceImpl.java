@@ -2,7 +2,6 @@ package social_tops.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,17 +16,15 @@ import org.alfresco.service.cmr.site.SiteInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateMidnight;
-import org.springframework.beans.factory.config.PropertiesFactoryBean;
-
-import com.thoughtworks.xstream.XStream;
 
 import social_tops.TopActivityPostDAO;
 import social_tops.TopItem;
 import social_tops.TopQuery;
 import social_tops.TopQuery.TopCriterion;
-import social_tops.ibatis.TopActivityPostDAOImpl;
 import social_tops.TopService;
 import social_tops.TopUser;
+
+import com.thoughtworks.xstream.XStream;
 
 public class TopServiceImpl implements TopService {
 
