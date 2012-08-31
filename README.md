@@ -42,6 +42,7 @@ and you can optionnaly override score calculation policy in this same file :
 	# weights for 'most active people' top
 	social-tops.weights.mostActivePeople_org.alfresco.documentlibrary.file-liked=1
 	social-tops.weights.mostActivePeople_org.alfresco.comments.comment-created=2
+	social-tops.weights.mostActivePeople_org.alfresco.comments.comment-deleted=-2
 	social-tops.weights.mostActivePeople_org.alfresco.documentlibrary.files-added=12
 	social-tops.weights.mostActivePeople_org.alfresco.documentlibrary.file-added=6
 	social-tops.weights.mostActivePeople_org.alfresco.documentlibrary.file-updated=3
