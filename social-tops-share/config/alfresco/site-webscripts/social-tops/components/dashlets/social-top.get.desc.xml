@@ -1,0 +1,7 @@
+<webscript>
+   <shortname>Social Top</shortname>
+   <description>Displays a social top list</description>
+   <!-- one of dashlet, site-dashlet or user-dashlet -->
+   <family>site-dashlet</family>
+   <url>/social-tops/components/dashlets/social-top</url>
+</webscript>

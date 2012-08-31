@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+
+<!--
+    Beans for iBatis
+-->
+<beans>
+
+    <!-- MyBatis config for social tops -->
+    
+    <bean id="social_tops_topSqlSessionFactory" class="org.alfresco.ibatis.HierarchicalSqlSessionFactoryBean">
+        <property name="useLocalCaches" value="${mybatis.useLocalCaches}"/>
+        <property name="resourceLoader" ref="dialectResourceLoader"/>
+        <property name="dataSource" ref="activitiesDataSource"/>
+        <property name="configLocation">
+            <value>classpath:alfresco/module/social_tops/ibatis/top-SqlMapConfig.xml</value>
+        </property>
+    </bean>
+
+    <!-- MyBatis-Spring sqlSessionTemplate -->
+    <bean id="social_tops_topSqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="social_tops_topSqlSessionFactory"/>
+    </bean>
+    
+</beans>

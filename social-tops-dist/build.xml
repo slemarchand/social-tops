@@ -1,0 +1,30 @@
+<project basedir="." default="dist" name="social-tops-dist">
+   
+   <property name="version" value="1.0"/>
+   
+   <!-- Clean out the build and distribution directories -->
+   <target name="clean" description="Clean out all build directories">
+      <delete dir="dist" />
+   </target>
+   
+   <!-- Create required prerequisite directory structure -->
+   <target name="prepare" description="Create initial build structures">
+      <mkdir dir="dist" />
+   </target>
+   
+   <target name="dist" depends="clean, prepare">
+   	<ant antfile="../social-tops-repo/build.xml" target="dist-jar" useNativeBasedir="true"/>
+   	<ant antfile="../social-tops-share/build.xml" target="dist-jar" useNativeBasedir="true"/>
+
+   	<ant antfile="../social-tops-repo/build.xml" target="dist-amp" useNativeBasedir="true"/>
+   	<ant antfile="../social-tops-share/build.xml" target="dist-amp" useNativeBasedir="true"/>
+
+	<zip destfile="dist/social-tops-${version}.zip"> 
+ 	    <fileset dir="dist"/>
+	</zip> 
+   
+   </target>
+   
+</project>
+   
+   

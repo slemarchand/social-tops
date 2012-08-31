@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+	
+	<bean id="social_tops_topActivityPostDAO" class="social_tops.ibatis.TopActivityPostDAOImpl">
+		<property name="sqlSessionTemplate" ref="social_tops_topSqlSessionTemplate" />
+	</bean>
+
+</beans>

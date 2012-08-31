@@ -1,0 +1,9 @@
+<webscript>
+  <shortname>Top People</shortname>
+  <description> <![CDATA[
+  Get top people.
+  ]]></description>
+  <url>/social-tops/top-people?count={count}&amp;type={type}&amp;date={date}&amp;site={site}</url>
+  <format default="json">argument</format>
+  <authentication>user</authentication>
+</webscript>

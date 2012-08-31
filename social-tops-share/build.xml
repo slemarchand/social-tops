@@ -1,0 +1,5 @@
+<project basedir="." default="dist-jar" name="social-tops-share">
+    <!-- Import properties and targets from share extras build script -->
+    <import file="3rd-party/build.xml" />
+
+</project>

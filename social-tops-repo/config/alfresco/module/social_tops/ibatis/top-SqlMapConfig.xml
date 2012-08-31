@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <typeAliases>
+        <typeAlias alias="TopQuery" type="social_tops.TopQuery"/>
+        <typeAlias alias="TopUser" type="social_tops.TopUser"/>
+    </typeAliases>
+    
+    <mappers>
+        <mapper resource="alfresco/module/social_tops/ibatis/#resource.dialect#/top-common-SqlMap.xml"/>
+    </mappers>
+    
+</configuration>

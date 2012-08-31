@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+
+	<import resource="classpath:alfresco/module/social_tops/ibatis/ibatis-context.xml" />
+
+	<import resource="classpath:alfresco/module/social_tops/dao/dao-context.xml" />
+
+	<import resource="classpath:alfresco/module/social_tops/service-context.xml" />
+
+	<import resource="classpath:alfresco/module/social_tops/webscript-context.xml" />
+
+</beans>

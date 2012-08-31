@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+
+	<bean id="social_tops_topService" class="social_tops.impl.TopServiceImpl"
+		init-method="init">
+		<property name="personService" ref="PersonService" />
+		<property name="topActivityPostDAO" ref="social_tops_topActivityPostDAO" />
+		<property name="properties">
+			<ref bean="global-properties" />
+		</property>
+	</bean>
+
+</beans>

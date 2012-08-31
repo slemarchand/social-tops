@@ -1,0 +1,9 @@
+<project basedir="." default="dist-jar" name="Javascript Console Repository">
+	<!-- Import properties and targets from share extras build script -->
+	
+	<property name="build.res.dir" value="alfresco" />
+	<property name="build.res.dir.anme" value="${build.res.dir}" />
+	
+	<import file="3rd-party/build.xml" />
+	
+</project>

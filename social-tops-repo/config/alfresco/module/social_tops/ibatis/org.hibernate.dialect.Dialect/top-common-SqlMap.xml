@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="social_tops.top">
+   
+    <!--                -->
+    <!-- Result Maps    -->
+    <!--                -->
+    
+   <resultMap id="TopUserResult" type="TopUser">
+      <result property="userId" column="userId"/>
+      <result property="score" column="score"/>
+   </resultMap>
+    
+    <!--                -->
+    <!-- Selects        -->
+    <!--                -->
+    
+	<!-- select top -->
+	<select id="top_query" parameterType="TopQuery" resultType="TopUser">
+		select userId, sum(weight) as score 
+		from (
+		
+		<foreach item="criterion" collection="criteria"
+			separator="union">
+		    
+		    select 
+		        post_user_id as userId, #{criterion.weight} as weight
+		    from 
+		    	alf_activity_post 
+		    where
+		        activity_type = #{criterion.activity}
+		    and     
+		        site_network = #{site}
+		    and
+		    	post_date > #{date} 
+		</foreach>
+				        
+		) as alf_activity_post_with_weights
+		group by 
+		    userId
+		order by score desc;             
+	</select>
+    
+    <!--                -->
+    <!-- Deletes        -->
+    <!--                -->
+    
+   
+</mapper>

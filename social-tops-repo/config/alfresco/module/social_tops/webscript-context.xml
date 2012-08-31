@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+
+	<bean id="webscript.social-tops.top-people.get" class="social_tops.webscript.TopGet" parent="webscript">
+		<property name="siteService" ref="SiteService"/>
+		<property name="topService" ref="social_tops_topService"/>
+	</bean>
+
+</beans>

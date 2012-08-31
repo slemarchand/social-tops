@@ -1,0 +1,5 @@
+<webscript>
+   <shortname>People List</shortname>
+   <description>Used by Social Top dashlet</description>
+   <url>/social-tops/components/dashlets/people/list</url>
+</webscript>
