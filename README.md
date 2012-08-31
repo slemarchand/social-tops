@@ -1,4 +1,4 @@
-Social Top Dashlet for Alfresco 4.0
+Social Tops for Alfresco 4.0
 ===================================
 
 Author: Sébastien Le Marchand
