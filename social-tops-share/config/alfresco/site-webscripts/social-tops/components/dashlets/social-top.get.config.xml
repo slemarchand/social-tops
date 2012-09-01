@@ -9,7 +9,7 @@
 		<filter value="mostTalkativePeople" label="mostTalkativePeople" />
 	</filter-type>
 	<filter-range>
-		<filter value="1" label="today" />
+		<filter value="0" label="today" />
 		<filter value="7" label="7days" />
 		<filter value="14" label="14days" />
 		<filter value="28" label="28days" />
