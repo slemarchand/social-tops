@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Social-tops by slemarchand</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Social-tops</h1>
+        <p class="header">An Alfresco Dashlet to show &quot;Top People&quot; based on their activities</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/slemarchand/social-tops/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/slemarchand/social-tops/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/slemarchand/social-tops">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/slemarchand">slemarchand</a></p>
+
+
+      </header>
+      <section>
+        <h1>Social Tops for Alfresco 4.0</h1>
+
+<p>Author: Sébastien Le Marchand</p>
+
+<p>This project defines a dashlet showing "Top People" based on their activities, with configurable policy for scores calculation.</p>
+
+<p>For further details, go to the wiki: <a href="https://github.com/slemarchand/social-tops/wiki">https://github.com/slemarchand/social-tops/wiki</a>.</p>
+
+<h2>Installation</h2>
+
+<p>The component has been developed to install on top of an existing Alfresco
+Community 4.0e installation, with a MySQL database : only this configuration 
+have be tested (in next release PostgreSQL support will be added).</p>
+
+<p>The social-tops-repo.jar needs to be copied into the Alfresco repository:</p>
+
+<pre><code>tomcat/webapps/alfresco/WEB-INF/lib/
+</code></pre>
+
+<p>The other file social-tops-share.jar needs to be copied to the 
+corresponding folder in the Share webapp:</p>
+
+<pre><code>tomcat/webapps/share/WEB-INF/lib/
+</code></pre>
+
+<p>or in the following directory :</p>
+
+<pre><code>tomcat/shared/lib/
+</code></pre>
+
+<p>In addition, you need to add or update some settings in the following file : </p>
+
+<pre><code>tomcat/shared/classes/alfresco-global.properties
+</code></pre>
+
+<p>like this to deactive activities post cleaner :</p>
+
+<pre><code># activities post cleaner
+activities.post.cleaner.startDelayMins=2147483647 
+activities.post.cleaner.repeatIntervalMins=2147483647 
+</code></pre>
+
+<p>and you can optionnaly override score calculation policy in this same file :</p>
+
+<pre><code># weights for 'most active people' top
+social-tops.weights.mostActivePeople_org.alfresco.documentlibrary.file-liked=1
+social-tops.weights.mostActivePeople_org.alfresco.comments.comment-created=2
+social-tops.weights.mostActivePeople_org.alfresco.comments.comment-deleted=-2
+social-tops.weights.mostActivePeople_org.alfresco.documentlibrary.files-added=12
+social-tops.weights.mostActivePeople_org.alfresco.documentlibrary.file-added=6
+social-tops.weights.mostActivePeople_org.alfresco.documentlibrary.file-updated=3
+
+# weights for 'most talkative people' top
+social-tops.weights.mostTalkativePeople_org.alfresco.comments.comment-created=2
+</code></pre>
+
+<h2>Building</h2>
+
+<p>To build the individual JAR files, run the following command from the base 
+project directory.</p>
+
+<pre><code>ant -Dalfresco.sdk.dir=c:\dev\alfresco-community-sdk-4.0.e clean dist-jar
+</code></pre>
+
+<p>The command should build a JAR file named javascript-console-repo.jar or
+javascript-console-share.jar in the 'dist' directory within your project.</p>
+
+<p>There also is the social-tops-dist target which builds both jar files and 
+amp files.</p>
+
+<p>To deploy the extension files into a local Tomcat instance for testing, you can 
+use the hotcopy-tomcat-jar task. You will need to set the tomcat.home
+property in Ant.</p>
+
+<pre><code>ant -Dtomcat.home=C:\alfresco-community-4.0.e\tomcat clean hotcopy-tomcat-jar
+</code></pre>
+
+<p>Once you have run this you will need to restart Tomcat so that the classpath 
+resources in the JAR file are picked up.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
