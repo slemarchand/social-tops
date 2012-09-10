@@ -16,7 +16,6 @@
 	</counts>
 
 	<types>
-		<!-- TODO: remplir avec plein d'exemples parlants -->
 		<type id="most-active-people">
 			<title>most active people</title>
 			<criterion activity="org.alfresco.blog.post-created=" weight="2" />
