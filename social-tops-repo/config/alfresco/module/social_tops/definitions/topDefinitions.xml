@@ -19,17 +19,68 @@
 		<!-- TODO: remplir avec plein d'exemples parlants -->
 		<type id="most-active-people">
 			<title>most active people</title>
-			<criterion activity="org.alfresco.documentlibrary.file-liked" weight="1" />
+			<criterion activity="org.alfresco.blog.post-created=" weight="2" />
+			<criterion activity="org.alfresco.blog.post-updated" weight="1" />
+			<criterion activity="org.alfresco.blog.post-deleted" weight="-2" />
 			<criterion activity="org.alfresco.comments.comment-created" weight="2" />
+			<criterion activity="org.alfresco.comments.comment-updated" weight="1" />
+			<criterion activity="org.alfresco.comments.comment-deleted" weight="-2" />
+			<criterion activity="org.alfresco.discussions.post-created" weight="2" />
+			<criterion activity="org.alfresco.discussions.post-updated" weight="1" />
+			<criterion activity="org.alfresco.discussions.post-deleted" weight="-2" />
+			<criterion activity="org.alfresco.discussions.reply-created" weight="2" />
+			<criterion activity="org.alfresco.discussions.reply-updated" weight="1" />
+			<criterion activity="org.alfresco.calendar.event-created" weight="3" />
+			<criterion activity="org.alfresco.calendar.event-updated" weight="2" />
+			<criterion activity="org.alfresco.calendar.event-deleted" weight="-3" />
+			<criterion activity="org.alfresco.documentlibrary.file-added" weight="2" />
+			<criterion activity="org.alfresco.documentlibrary.files-added" weight="4" />
+			<criterion activity="org.alfresco.documentlibrary.file-created" weight="2" />
+			<criterion activity="org.alfresco.documentlibrary.file-deleted" weight="-2" />
+			<criterion activity="org.alfresco.documentlibrary.files-deleted" weight="-2" />
+			<criterion activity="org.alfresco.documentlibrary.file-updated" weight="1" />
+			<criterion activity="org.alfresco.documentlibrary.files-updated" weight="2" />
+			<criterion activity="org.alfresco.documentlibrary.google-docs-checkout" weight="4" />
+			<criterion activity="org.alfresco.documentlibrary.google-docs-checkin" weight="4" />
+			<criterion activity="org.alfresco.documentlibrary.inline-edit" weight="2" />
+			<criterion activity="org.alfresco.documentlibrary.file-liked" weight="1" />
+			<criterion activity="org.alfresco.documentlibrary.folder-liked" weight="1" />
+			<criterion activity="org.alfresco.wiki.page-created" weight="2" />
+			<criterion activity="org.alfresco.wiki.page-edited" weight="1" />
+			<criterion activity="org.alfresco.wiki.page-renamed" weight="1" />
+			<criterion activity="org.alfresco.wiki.page-deleted" weight="-2" />
+			<criterion activity="org.alfresco.site.group-added" weight="2" />
+			<criterion activity="org.alfresco.site.group-removed" weight="-2" />
+			<criterion activity="org.alfresco.site.group-role-changed" weight="1" />
+			<criterion activity="org.alfresco.site.user-role-changed" weight="1" />
+			<criterion activity="org.alfresco.links.link-created" weight="2" />
+			<criterion activity="org.alfresco.links.link-updated" weight="1" />
+			<criterion activity="org.alfresco.links.link-deleted" weight="1" />
+			<criterion activity="org.alfresco.datalists.list-created" weight="2" />
+			<criterion activity="org.alfresco.datalists.list-updated" weight="1" />
+			<criterion activity="org.alfresco.datalists.list-deleted" weight="-2" />
+		</type>
+		<type id="most-active-bloggers">
+			<title>most active bloggers</title>
+			<criterion activity="org.alfresco.blog.post-created=" weight="2" />
+			<criterion activity="org.alfresco.blog.post-updated" weight="1" />
+			<criterion activity="org.alfresco.blog.post-deleted" weight="-2" />
 		</type>
 		<type id="most-liking-people">
 			<title>most liking people</title>
-			<criterion activity="org.alfresco.documentlibrary.file-liked" weight="2" />
+			<criterion activity="org.alfresco.documentlibrary.file-liked" weight="1" />
+			<criterion activity="org.alfresco.documentlibrary.folder-liked" weight="1" />
 		</type>
 		<type id="most-talkative-people">
 			<title>most talkative people</title>
-			<criterion activity="org.alfresco.documentlibrary.file-liked" weight="1" />
 			<criterion activity="org.alfresco.comments.comment-created" weight="2" />
+			<criterion activity="org.alfresco.comments.comment-updated" weight="1" />
+			<criterion activity="org.alfresco.comments.comment-deleted" weight="-2" />
+			<criterion activity="org.alfresco.discussions.post-created" weight="2" />
+			<criterion activity="org.alfresco.discussions.post-updated" weight="1" />
+			<criterion activity="org.alfresco.discussions.post-deleted" weight="-2" />
+			<criterion activity="org.alfresco.discussions.reply-created" weight="2" />
+			<criterion activity="org.alfresco.discussions.reply-updated" weight="1" />
 		</type>
 	</types>
 
