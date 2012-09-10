@@ -1,9 +1,36 @@
-<project basedir="." default="dist-jar" name="Javascript Console Repository">
+<project basedir="." default="dist-jar" name="social-tops-repo">
+	
 	<!-- Import properties and targets from share extras build script -->
-	
+
 	<property name="build.res.dir" value="alfresco" />
-	<property name="build.res.dir.anme" value="${build.res.dir}" />
-	
+	<property name="build.res.dir.name" value="alfresco" />
+
 	<import file="3rd-party/build.xml" />
-	
+
+	<taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
+		<classpath refid="compile.classpath" />
+	</taskdef>
+
+	<target name="generate-schema">
+		
+		<property name="schema.dir" value="${config.dir}/alfresco/module/social_tops/definitions" />
+		
+		<property name="schema.file" value="topDefinitions_1_0.xsd" />
+		
+		<schemagen srcdir="${src.dir}" destdir="${schema.dir}">
+			
+			<schema file="${schema.file}" namespace="http://slemarchand.github.org/social-tops/definitions/1.0" />
+			<classpath refid="compile.classpath">
+				
+			</classpath>
+		
+			<include name="social_tops/definition/*" />
+
+		</schemagen>
+		
+		<!--
+		<move file="${schema.generated.file}" tofile="${schema.file}" />
+		-->
+	</target>
+
 </project>

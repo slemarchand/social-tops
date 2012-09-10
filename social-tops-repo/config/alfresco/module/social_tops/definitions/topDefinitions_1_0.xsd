@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://slemarchand.github.org/social-tops/definitions/1.0" xmlns:tns="http://slemarchand.github.org/social-tops/definitions/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="social-tops" type="tns:topDefinitions"/>
+
+  <xs:complexType name="entitled" abstract="true">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="topCount">
+    <xs:complexContent>
+      <xs:extension base="tns:entitled">
+        <xs:sequence/>
+        <xs:attribute name="value" type="xs:int" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="topCriterion">
+    <xs:sequence/>
+    <xs:attribute name="activity" type="xs:string" use="required"/>
+    <xs:attribute name="weight" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="topDefinitions">
+    <xs:sequence>
+      <xs:element name="counts">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="count" type="tns:topCount" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="types">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="type" type="tns:topType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ranges">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="range" type="tns:topRange" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="topType">
+    <xs:complexContent>
+      <xs:extension base="tns:entitled">
+        <xs:sequence>
+          <xs:element name="criterion" type="tns:topCriterion" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="topRange">
+    <xs:complexContent>
+      <xs:extension base="tns:entitled">
+        <xs:sequence/>
+        <xs:attribute name="days" type="xs:int" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
+

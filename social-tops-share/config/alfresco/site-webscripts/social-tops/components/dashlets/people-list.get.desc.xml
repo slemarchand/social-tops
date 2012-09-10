@@ -2,4 +2,8 @@
    <shortname>People List</shortname>
    <description>Used by Social Top dashlet</description>
    <url>/social-tops/components/dashlets/people/list</url>
+   <!-- TODO -->
+   <!--
+   <url>/social-tops/components/dashlets/people/list?countFilter={count}&typeFilter={type}&dateFilter={date}&site={site}&dashletId={dashletId}</url>
+	-->
 </webscript>

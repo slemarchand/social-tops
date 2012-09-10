@@ -1,4 +1,4 @@
-package social_tops;
+package social_tops.service;
 
 import java.util.List;
 

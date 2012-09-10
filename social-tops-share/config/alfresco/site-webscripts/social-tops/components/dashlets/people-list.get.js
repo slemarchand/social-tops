@@ -5,9 +5,11 @@
  */
 function main()
 {
-   // Call the correct repo script depending on the mode
-   var mode = args.mode, site = args.site, countFilter = args.countFilter, 
-      typeFilter = args.typeFilter, dateFilter = args.dateFilter;
+   // Note: mode not used in this version 
+   var dashletId = args.dashletId, mode = args.mode, site = args.site, 
+      countFilter = args.countFilter, 
+      typeFilter = args.typeFilter, 
+      dateFilter = args.dateFilter;
 	
    // Call the repo for the top people
    var json = remote.call("/social-tops/top-people?count=" + countFilter 
@@ -15,8 +17,7 @@ function main()
 		   + "&date=" + dateFilter 
 		   + "&site=" + site);
    
-   var items = [],
-      totalResults = 0;
+   var items = [];
    
    if (json.status == 200)
    {
@@ -24,23 +25,12 @@ function main()
       var obj = eval('(' + json + ')');
       if (obj)
       {
-         totalResults = obj.length;
          items = obj;
-
-         var item, userStatus;
-         for (var i = 0, j = items.length; i < j; i++)
-         {
-            item = items[i];
-            userStatus = item.person.userStatus;
-            if (typeof userStatus != "undefined" && userStatus.length > 0)
-            {
-               item.person.userStatusRelativeTime = AlfrescoUtil.relativeTime(item.person.userStatusTime.iso8601);
-            }
-         }
       }
    }
    
    // Prepare the model
+   model.dashletId = dashletId;
    model.items = items;
 }
 

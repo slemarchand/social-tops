@@ -1,6 +1,6 @@
-package social_tops;
+package social_tops.activity;
 
-public class TopUser {
+public class UserScore {
 	
 	private int score;
 	private String userId;

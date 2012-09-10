@@ -1,0 +1,9 @@
+<webscript>
+  <shortname>Definitions</shortname>
+  <description> <![CDATA[
+  Get definitions.
+  ]]></description>
+  <url>/social-tops/definitions</url>
+  <format default="xml">argument</format>
+  <authentication>user</authentication>
+</webscript>

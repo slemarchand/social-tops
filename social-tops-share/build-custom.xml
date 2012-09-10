@@ -1,0 +1,7 @@
+<project basedir="." default="dist-jar" name="social-tops-share-custom">
+   
+ 	<import file="../../build-common.xml" />  
+    <import file="build.xml" />
+
+</project>
+

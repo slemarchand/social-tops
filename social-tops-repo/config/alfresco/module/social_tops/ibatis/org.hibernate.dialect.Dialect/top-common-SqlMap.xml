@@ -7,26 +7,28 @@
     <!--                -->
     <!-- Result Maps    -->
     <!--                -->
-    
-   <resultMap id="TopUserResult" type="TopUser">
-      <result property="userId" column="userId"/>
-      <result property="score" column="score"/>
-   </resultMap>
-    
+
+ 
+	<resultMap id="TopUserResult" type="UserScore">
+	   <result property="userId" column="userId"/>
+	   <result property="score" column="score"/>
+	</resultMap>
+
     <!--                -->
     <!-- Selects        -->
     <!--                -->
     
 	<!-- select top -->
-	<select id="top_query" parameterType="TopQuery" resultType="TopUser">
-		select userId, sum(weight) as score 
+	<select id="top_query" parameterType="TopQuery" resultType="UserScore">
+		
+		select userId, sum(activity_score) as score 
 		from (
 		
 		<foreach item="criterion" collection="criteria"
 			separator="union">
 		    
 		    select 
-		        post_user_id as userId, #{criterion.weight} as weight
+		        post_user_id as userId, sum(#{criterion.weight}) as activity_score
 		    from 
 		    	alf_activity_post 
 		    where
@@ -34,18 +36,49 @@
 		    and     
 		        site_network = #{site}
 		    and
-		    	post_date > #{date} 
+		    	post_date > #{date}
+		    group by 
+		    	userId	 
 		</foreach>
 				        
-		) as alf_activity_post_with_weights
+		) as alf_activity_score
 		group by 
 		    userId
-		order by score desc;             
+		order by score desc;
+		             
 	</select>
-    
-    <!--                -->
-    <!-- Deletes        -->
-    <!--                -->
-    
-   
+	
+	<!-- select activity scores -->
+	<select id="activity_score_query" parameterType="ActivityScoreQuery" resultType="UserActivityScore">
+		
+		select activity, userId, score, hits 
+		from (
+		
+		<foreach item="criterion" collection="criteria"
+			separator="union">
+		    select 
+		        activity_type as activity, post_user_id as userId, sum(#{criterion.weight}) as score, sum(1) as hits
+		    from 
+		    	alf_activity_post 
+		    where
+		        activity_type = #{criterion.activity}
+		    and     
+		        site_network = #{site}
+		    and
+			    post_date > #{date}
+			and
+				post_user_id in
+				<foreach item="item" collection="userIds"
+				      open="(" separator="," close=")">
+				        #{item}
+	 			 </foreach>     
+			group by 
+			    userId, activity_type
+		</foreach>
+				        
+		) as alf_activity_score
+		order by score desc;
+		             	             
+	</select>
+       
 </mapper>

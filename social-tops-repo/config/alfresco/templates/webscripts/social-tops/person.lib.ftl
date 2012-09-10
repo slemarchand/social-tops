@@ -4,7 +4,21 @@
 {
 	"position": "${position}",
 
-	"score": "${score}",
+	"score": 
+	{
+		"totalScore": ${score.totalScore},
+		"criterionScores": [
+			<#list score.criterionScores as criterionScore>
+				{
+					"activity": "${criterionScore.criterion.activity}",
+					"weight": ${criterionScore.criterion.weight},
+					"hits": ${criterionScore.hits},
+					"score": ${criterionScore.score}
+				}
+			<#if criterionScore_has_next>,</#if>
+			</#list>
+		]
+	},
 	
 	"person":
 	{

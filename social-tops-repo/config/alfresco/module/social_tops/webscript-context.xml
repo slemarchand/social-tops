@@ -6,5 +6,9 @@
 		<property name="siteService" ref="SiteService"/>
 		<property name="topService" ref="social_tops_topService"/>
 	</bean>
+	
+	<bean id="webscript.social-tops.definitions.get" class="social_tops.webscript.DefinitionsGet" parent="webscript">
+		<property name="topDefinitionsDAO" ref="social_tops_topDefinitionsDAO"/>
+	</bean>
 
 </beans>

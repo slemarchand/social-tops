@@ -2,8 +2,12 @@
 <!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
 <beans>
 	
-	<bean id="social_tops_topActivityPostDAO" class="social_tops.ibatis.TopActivityPostDAOImpl">
+	<bean id="social_tops_topActivityDAO" class="social_tops.activity.ibatis.TopActivityDAOImpl">
 		<property name="sqlSessionTemplate" ref="social_tops_topSqlSessionTemplate" />
+	</bean>
+	
+	<bean id="social_tops_topDefinitionsDAO" class="social_tops.definition.impl.TopDefinitionsDAOImpl" init-method="init">
+		<property name="definitionsUrl" value="${social-tops.definitions}" />
 	</bean>
 
 </beans>

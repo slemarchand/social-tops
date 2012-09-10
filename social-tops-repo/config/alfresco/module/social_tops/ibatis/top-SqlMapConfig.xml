@@ -5,8 +5,10 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias alias="TopQuery" type="social_tops.TopQuery"/>
-        <typeAlias alias="TopUser" type="social_tops.TopUser"/>
+        <typeAlias alias="TopQuery" type="social_tops.activity.TopQuery"/>
+        <typeAlias alias="UserScore" type="social_tops.activity.UserScore"/>
+        <typeAlias alias="ActivityScoreQuery" type="social_tops.activity.ActivityScoreQuery"/>
+        <typeAlias alias="UserActivityScore" type="social_tops.activity.UserActivityScore"/>
     </typeAliases>
     
     <mappers>

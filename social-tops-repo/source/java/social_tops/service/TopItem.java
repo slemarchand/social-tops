@@ -1,40 +1,46 @@
-package social_tops;
+package social_tops.service;
 
 import org.alfresco.service.cmr.repository.NodeRef;
 
 public class TopItem {
 	
-	public TopItem(int position, int score, NodeRef node) {
-		super();
-		this.position = position;
-		this.score = score;
-		this.node = node;
-	}
-	
-	public TopItem(int position, int score, String node) {
-		this(position, score, new NodeRef(node));
-	}
-	
 	private int position;
-	private int score;
+	private Score score = new Score();
 	private NodeRef node;
 	
+	public TopItem(int position, int totalScore, NodeRef node) {
+		super();
+		this.position = position;
+		this.score.setTotalScore(totalScore);
+		this.node = node;
+	}
+
+	public TopItem(int position, int totalScore, String node) {
+		this(position, totalScore, new NodeRef(node));
+	}
+
+
 	public int getPosition() {
 		return position;
 	}
+
 	public void setPosition(int position) {
 		this.position = position;
 	}
-	public int getScore() {
+
+	public Score getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+
+	public void setScore(Score score) {
 		this.score = score;
 	}
+
 	public NodeRef getNode() {
 		return node;
 	}
+
 	public void setNode(NodeRef node) {
 		this.node = node;
-	}	
+	}
 }

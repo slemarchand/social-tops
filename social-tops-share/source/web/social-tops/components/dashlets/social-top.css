@@ -19,4 +19,47 @@
 	
 }
 
+.social-top .topItemActions
+{
+   height: 16px;
+   right: 4px;
+   top: 1px;
+   visibility: visible;
+   opacity: 0;
+}
 
+.social-top .topItemActions .topItemActionIcon
+{
+   float: right;
+   margin: 3px;
+   height: 16px;
+   width: 16px;
+   cursor: pointer;
+   background-repeat: no-repeat;
+
+}
+
+.social-top .item-infos-wrapper 
+{
+	display: none;
+}
+
+.social-top .topItemActions .info
+{
+   background-image: url(../../../components/images/info-16.png);
+}
+
+.balloon .social-top .avatar 
+{
+	float: left;
+}
+
+.balloon .social-top .score
+{
+	padding-top: 5px;
+}
+
+.balloon .social-top .total
+{
+	padding-bottom: 2px;
+}

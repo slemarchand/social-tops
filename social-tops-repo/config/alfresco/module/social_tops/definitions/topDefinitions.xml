@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<social-tops xmlns="http://slemarchand.github.org/social-tops/definitions/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://slemarchand.github.org/social-tops/definitions/1.0 topDefinitions_1_0.xsd">
+
+	<counts>
+		<count value="5">
+			<title>Top 5</title>
+		</count>
+		<count value="10">
+			<title>Top 10</title>
+		</count>
+		<count value="10">
+			<title>Top 20</title>
+		</count>
+	</counts>
+
+	<types>
+		<!-- TODO: remplir avec plein d'exemples parlants -->
+		<type id="most-active-people">
+			<title>most active people</title>
+			<criterion activity="org.alfresco.documentlibrary.file-liked" weight="1" />
+			<criterion activity="org.alfresco.comments.comment-created" weight="2" />
+		</type>
+		<type id="most-liking-people">
+			<title>most liking people</title>
+			<criterion activity="org.alfresco.documentlibrary.file-liked" weight="2" />
+		</type>
+		<type id="most-talkative-people">
+			<title>most talkative people</title>
+			<criterion activity="org.alfresco.documentlibrary.file-liked" weight="1" />
+			<criterion activity="org.alfresco.comments.comment-created" weight="2" />
+		</type>
+	</types>
+
+	<ranges>
+		<range days="0">
+			<title>today</title>
+		</range>
+		<range days="7">
+			<title>in the last 7 days</title>
+		</range>
+		<range days="14">
+			<title>in the last 14 days</title>
+		</range>
+		<range days="28">
+			<title>in the last 28 days</title>
+		</range>
+		<range days="61">
+			<title>in the last 2 months</title>
+		</range>
+		<range days="91">
+			<title>in the last 3 months</title>
+		</range>
+		<range days="182">
+			<title>in the last 6 months</title>
+		</range>
+	</ranges>
+
+</social-tops>

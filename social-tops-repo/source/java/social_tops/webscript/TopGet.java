@@ -15,8 +15,9 @@ import org.springframework.extensions.webscripts.Status;
 import org.springframework.extensions.webscripts.WebScriptException;
 import org.springframework.extensions.webscripts.WebScriptRequest;
 
-import social_tops.TopItem;
-import social_tops.TopService;
+import social_tops.service.Score;
+import social_tops.service.TopItem;
+import social_tops.service.TopService;
 
 public class TopGet extends DeclarativeWebScript {
 
@@ -85,13 +86,13 @@ public class TopGet extends DeclarativeWebScript {
 		
 		// Process it ready for FreeMarker
 
-		Map<Integer, Object> scores = new HashMap<Integer, Object>(size);
+		Map<Integer, Score> scores = new HashMap<Integer, Score>(size);
 		Map<Integer, Object> nodes = new HashMap<Integer, Object>(size);
 		
 		for (TopItem topItem : topItems) {
 			
 			int pos = topItem.getPosition();
-			int score =  topItem.getScore();
+			Score score =  topItem.getScore();
 			NodeRef node =  topItem.getNode();
 			
 			scores.put(pos, score);

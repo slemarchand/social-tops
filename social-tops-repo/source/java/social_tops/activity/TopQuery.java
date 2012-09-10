@@ -1,7 +1,9 @@
-package social_tops;
+package social_tops.activity;
 
 import java.util.Date;
 import java.util.List;
+
+import social_tops.definition.TopCriterion;
 
 public class TopQuery {
 	
@@ -31,30 +33,5 @@ public class TopQuery {
 
 	public void setCriteria(List<TopCriterion> criteria) {
 		this.criteria = criteria;
-	}
-
-	public static class TopCriterion {
-		
-		private String activity;
-		private int weight;
-		
-		public TopCriterion(String activity, int weight) {
-			super();
-			this.activity = activity;
-			this.weight = weight;
-		}
-		
-		public String getActivity() {
-			return activity;
-		}
-		public void setActivity(String activity) {
-			this.activity = activity;
-		}
-		public int getWeight() {
-			return weight;
-		}
-		public void setWeight(int weight) {
-			this.weight = weight;
-		}
 	}
 }

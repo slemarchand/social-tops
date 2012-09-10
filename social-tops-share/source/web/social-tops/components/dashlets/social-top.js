@@ -91,7 +91,31 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
           * @property regionId
           * @type string
           */
-         regionId: ""
+         regionId: "",
+         
+         /**
+          * Default count value.
+          * 
+          * @property defaultCountValue
+          * @type string
+          */
+         defaultCountValue: "",
+         
+         /**
+          * Default type value.
+          * 
+          * @property defaultTypeValue
+          * @type string
+          */
+         defaultTypeValue: "",
+         
+         /**
+          * Default range value.
+          * 
+          * @property defaultRangeValue
+          * @type string
+          */
+         defaultRangeValue: ""
       },
 
       /**
@@ -135,22 +159,16 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
          // The top list container
          this.topList = Dom.get(this.id + "-topList");
          
-         // Load preferences to override default filter and range
-         this.widgets.range.set("label", this.msg("filter.7days"));
-         this.widgets.range.value = "7";
-         this.widgets.type.set("label", this.msg("filter.mostActivePeople"));
-         this.widgets.type.value = "mostActivePeople";
-         this.widgets.count.set("label", this.msg("filter.top5"));
-         this.widgets.count.value = "5";
+         // Load preferences to override default filter
 
-         
          this.services.preferences.request(this.buildPreferences(),
          {
             successCallback:
             {
                fn: function(p_oResponse)
                {
-                  var countPreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, this.buildPreferences(PREF_COUNT), "");
+                  var countPreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, 
+                		  this.buildPreferences(PREF_COUNT), this.options.defaultCountValue);
             	  if (countPreference !== null)
                   {
                      this.widgets.count.value = countPreference;
@@ -169,7 +187,8 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
                      }
                   }
                   
-                  var rangePreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, this.buildPreferences(PREF_RANGE), "7");
+                  var rangePreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, 
+                		  this.buildPreferences(PREF_RANGE), this.options.defaultRangeValue);
             	  if (rangePreference !== null)
                   {
                      this.widgets.range.value = rangePreference;
@@ -188,7 +207,8 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
                      }
                   }
                   
-            	  var typePreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, this.buildPreferences(PREF_TYPE), "all");
+            	  var typePreference = Alfresco.util.findValueByDotNotation(p_oResponse.json, 
+            			  this.buildPreferences(PREF_TYPE), this.options.defaultTypeValue);
                   if (typePreference !== null)
                   {
                      this.widgets.type.value = typePreference;
@@ -224,15 +244,18 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
                },
                scope: this
             }
-         });
-         
-         
+         });  
+      },
+      
+      setUpMenu: function SocialTop_setUpMenu(menu, value)
+      {
+    	  
       },
       
       /**
        * Build the Social Top dashlet preferences name string with optional suffix.
        * The component region ID and the current siteId (if any) is used as part of the
-       * preferences name - to uniquely identify the preference within the site or user
+       * preferences name - to uniquely identify the preference within the site
        * dashboard context.
        * 
        * @method buildPreferences
@@ -260,7 +283,8 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
                mode: this.options.mode,
                dateFilter: dateFilter,
                typeFilter: typeFilter,
-               countFilter: countFilter
+               countFilter: countFilter,
+               dashletId: this.id
             },
             successCallback:
             {
@@ -293,6 +317,31 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
          else
          {
             this.topList.innerHTML = html;
+            
+            // Render relative time for each user status
+            Alfresco.util.renderRelativeTime(this.id);
+            
+            // Setup "information" action for each user
+            var items = Selector.query('.detail-list-item', this.id);
+            for(i=0; i<items.length; i++) {
+            	
+               var message = Selector.query('.item-infos-wrapper', items[i], true).innerHTML;
+            	
+               new SocialTops.widget.TopItemActions(items[i].id).setOptions(
+               {
+			      actions:
+			      [
+			         {
+			            cssClass: "info",
+			            bubbleOnClick:
+			            {
+			               message: message
+			            },
+			            tooltip: "More..."
+			         }
+			      ]
+			   });
+            }
          }
       },
 
@@ -367,6 +416,199 @@ if (typeof SocialTops.dashlet == "undefined" || !SocialTops.dashlet)
             this.widgets.count.value = menuItem.value;
             this.populateTopList(this.widgets.range.value, this.widgets.type.value, this.widgets.count.value);
             this.services.preferences.set(this.buildPreferences(PREF_COUNT), this.widgets.count.value);
+         }
+      }
+   });
+})();
+
+/**
+* SocialTops widget namespace.
+* 
+* @namespace SocialTops.widget
+*/
+if (typeof SocialTops.widget == "undefined" || !SocialTops.widget)
+{
+	SocialTops.widget = {};
+}
+
+/**
+ * Top item action controller
+ *
+ * @namespace SocialTops.widget
+ * @class SocialTops.widget.TopItemActions
+ */
+
+var TOP_ITEM_ACTIONS_OPACITY = 0,
+	TOP_ITEM_ACTIONS_OPACITY_FADE_SPEED = 0.2;
+
+(function()
+{
+   /**
+    * YUI Library aliases
+    */
+   var Dom = YAHOO.util.Dom,
+      Event = YAHOO.util.Event,
+      Selector = YAHOO.util.Selector;
+
+   /**
+    * Top Item Action controller constructor.
+    *
+    * @return {SocialTops.widget.TopItemActions} The new SocialTops.widget.TopItemActions instance
+    * @constructor
+    */
+   SocialTops.widget.TopItemActions = function TopItemActions_constructor(htmlId)
+   {
+      return SocialTops.widget.TopItemActions.superclass.constructor.call(this, "SocialTops.widget.TopItemActions", htmlId, ["selector"]);
+   };
+
+   YAHOO.extend(SocialTops.widget.TopItemActions, Alfresco.component.Base,
+   {
+      /**
+       * DOM node of top item
+       * Looks for first child DIV of dashlet with class="dashlet" and attach to this
+       *
+       * @property dashlet
+       * @type object
+       * @default null
+       */
+      topItem: null,
+      
+      /**
+       * The that node containing all the actions nodes. The actions are
+       * grouped under a single parent so that only one animation effect needs
+       * to be applied.
+       *
+       * @property actionsNode
+       * @type object
+       * @default null
+       */
+      actionsNode: null,
+
+
+      /**
+       * Fired by YUI when parent element is available for scripting.
+       * Template initialisation, including instantiation of YUI widgets and event listener binding.
+       *
+       * @method onReady
+       */
+      onReady: function TopItemActions_onReady()
+      {
+         this.topItem = Dom.get(this.id);
+         if (this.topItem)
+         {
+            this.actionsNode = Selector.query(".topItemActions", this.topItem, true);
+            if (YAHOO.env.ua.ie > 0)
+            {
+               // IE doesn't handle the fading in/out very well so we won't do it. 
+            }
+            else
+            {
+               Dom.setStyle(this.actionsNode, "opacity", TOP_ITEM_ACTIONS_OPACITY);
+            }
+
+            // Reverse the order of the arrays so that the first entry is furthest to the left...
+            this.options.actions.reverse();
+            // Iterate through the array of actions creating a node for each one...
+            for (var i = 0; i < this.options.actions.length; i++)
+            {
+               var currAction = this.options.actions[i];
+               if (currAction.cssClass && currAction.bubbleOnClick)
+               {
+                  var currActionNode = document.createElement("div");  // Create the node
+                  if (currAction.tooltip)
+                  {
+                     Dom.setAttribute(currActionNode, "title", currAction.tooltip);
+                  }
+                  Dom.addClass(currActionNode, "topItemActionIcon");
+                  Dom.addClass(currActionNode, currAction.cssClass);   // Set the class (this should add the icon image
+                  this.actionsNode.appendChild(currActionNode);        // Add the node to the parent
+
+                  if (currAction.id)
+                  {
+                     currActionNode.id = this.id + currAction.id;
+                  }
+
+                  var _this = this;
+
+                  var balloon = Alfresco.util.createBalloon(this.id,
+                  {
+                     html: currAction.bubbleOnClick.message,
+                     width: "30em"
+                  });
+                  
+                  Event.addListener(currActionNode, "click", balloon.show, balloon, true);
+               }
+               else
+               {
+                  Alfresco.logger.warn("TopItemActions_onReady: Action is not valid.");
+               }
+            }
+
+            // Add a listener to animate the actions...
+            Event.addListener(this.topItem, "mouseover", this._fadeIn, this);
+            Event.addListener(this.topItem, "mouseout", this._fadeOut, this);
+         }
+         else
+         {
+            // It's not possible to set up the actions without the topItem
+         }
+      },
+
+      /**
+       * Fade the node actions out
+       *
+       * @method _fadeOut
+       * @param e {event} The current event
+       * @param me {scope} the context to run in
+       * @protected
+       */
+      _fadeOut: function TopItemActions__fadeOut(e, me)
+      {
+         if (YAHOO.env.ua.ie > 0 && YAHOO.env.ua.ie < 9)
+         {
+            me.actionsNode.style.display = "none";
+         }
+         else
+         {
+            // Only fade out if the mouse has left the item entirely
+            if (!Dom.isAncestor(me.topItem, Event.getRelatedTarget(e)))
+            {
+               var fade = new YAHOO.util.Anim(me.actionsNode,
+               {
+                  opacity:
+                  {
+                     to: TOP_ITEM_ACTIONS_OPACITY
+                  }
+               }, TOP_ITEM_ACTIONS_OPACITY_FADE_SPEED);
+               fade.animate();
+            }
+         }
+      },
+
+      /**
+       * Fade the actions node in
+       *
+       * @method _fadeIn
+       * @param e {event} The current event
+       * @param me {scope} the context to run in
+       * @protected
+       */
+      _fadeIn: function TopItemActions__fadeIn(e, me)
+      {
+         if (YAHOO.env.ua.ie > 0 && YAHOO.env.ua.ie < 9)
+         {
+            me.actionsNode.style.display = "block";
+         }
+         else
+         {
+            var fade = new YAHOO.util.Anim(me.actionsNode,
+            {
+               opacity:
+               {
+                  to: 1
+               }
+            }, TOP_ITEM_ACTIONS_OPACITY_FADE_SPEED);
+            fade.animate();
          }
       }
    });

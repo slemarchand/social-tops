@@ -7,8 +7,13 @@
    {
       siteId: "${page.url.templateArgs.site!""}",
       mode: "site",
-      regionId: "${args['region-id']?js_string}"
+      regionId: "${args['region-id']?js_string}",
+      defaultCountValue: "${defaultCountValue}",
+      defaultRangeValue: "${defaultRangeValue}",
+      defaultTypeValue: "${defaultTypeValue}"
+      
    }).setMessages(${messages});
+   
    new Alfresco.widget.DashletResizer("${jsid}", "${instance.object.id}");
 
    new Alfresco.widget.DashletTitleBarActions("${jsid}").setOptions(
@@ -40,7 +45,8 @@
          </span>
          <select id="${id}-count-menu">
          <#list filterCounts as filter>
-            <option value="${filter.value?html}">${msg("filter." + filter.label)}</option>
+            <option value="${filter.value?html}">
+            ${filter.label?html}</option>
          </#list>
          </select>
       
@@ -51,7 +57,8 @@
          </span>
          <select id="${id}-type-menu">
          <#list filterTypes as filter>
-            <option value="${filter.value?html}">${msg("filter." + filter.label)}</option>
+            <option value="${filter.value?html}">
+            ${filter.label?html}</option>
          </#list>
          </select>
          
@@ -62,7 +69,8 @@
          </span>
          <select id="${id}-range-menu">
          <#list filterRanges as filter>
-            <option value="${filter.value?html}">${msg("filter." + filter.label)}</option>
+            <option value="${filter.value?html}">
+            ${filter.label?html}</option>
          </#list>
          </select>
          
